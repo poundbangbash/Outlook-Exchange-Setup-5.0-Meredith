@@ -6,7 +6,8 @@ Installs the files:
 /Library/LaunchAgent/com.company.check-for-outlook-2016-setup.plist
 /Library/Management/Outlook2016Setup/Scripts/check-if-setup.sh
 /Library/Management/Outlook2016Setup/Scripts/Outlook Exchange Setup 5.0.scpt
-/Library/Management/Outlook2016Setup/LaunchAgents/net.talkingmoose.OutlookExchangeSetup5.0.plist 
+
+On run, if no Exchange account is setup, writes a out ~/Library/LaunchAgents/net.talkingmoose.OutlookExchangeSetup5.0.plist
     - removed the RunAtLoad key to not trigger a run when logging in
     - adjusted file to WatchPath ~/Library/Group Containers/UBF8T346G9.Office/OutlookProfile.plist - one that only gets modified on launch.
 
@@ -15,8 +16,7 @@ The /Library/LaunchAgent/com.company.check-for-outlook-setup.plist gets loaded o
     - Runs /Library/Management/Outlook2016Setup/Scripts/check-if-setup.sh to see if an Exchange account exists already
         -If TRUE, exit as an account has been setup
         -If FALSE
-             - Copy /Library/Management/Outlook2016Setup/LaunchAgent/net.talkingmoose.OutlookExchangeSetup5.0.plist to ~/Library/LaunchAgents
-             - Load ~/Library/LaunchAgent/net.talkingmoose.OutlookExchangeSetup5.0.plist - which watches for an Outlook specific file file to exist.
+             - Writes out and loads ~/Library/LaunchAgents/net.talkingmoose.OutlookExchangeSetup5.0.plist - which watches for an Outlook specific file file to exist.
              - On launch of Outlook, Talkingmoose's applescript runs
                 - End of script has the following added: - !!NEEDS TO BE ADJUSTED TO ACCOUNT FOR FAILED SETUP ATTEMPTS
                     - `do shell script "rm $HOME/Library/LaunchAgents/net.talkingmoose.OutlookExchangeSetup5.0.plist"`
